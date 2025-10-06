@@ -1,3 +1,5 @@
+package org.example;
+
 import org.example.AddressBook;
 import org.example.BuddyInfo;
 
