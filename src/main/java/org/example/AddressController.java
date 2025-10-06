@@ -36,9 +36,11 @@ public class AddressController {
     @PostMapping("/{id}/buddies")
     public BuddyInfo addBuddyToBook(@PathVariable Long id, @RequestBody BuddyInfo buddy) {
         AddressBook book = AddressRepo.findById(id).orElseThrow();
-        buddy = new BuddyInfo(buddy.getName(), buddy.getNumber(), buddy.getHome());
+        buddy = new BuddyInfo(buddy.getName(), buddy.getNumber(), buddy.getHome(), buddy.getAddress());
         book.addBuddy(buddy);
         AddressRepo.save(book);
+
+        buddy = book.getBuddyList().get(book.getBuddyList().size() - 1);
         return buddy;
     }
 }

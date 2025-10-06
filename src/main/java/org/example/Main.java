@@ -5,9 +5,9 @@ public class Main {
     public static void main(String[] args) {
         AddressBook book = new AddressBook();
 
-        BuddyInfo buddy1 = new BuddyInfo("Alice",905, "Oshawa");
-        BuddyInfo buddy2 = new BuddyInfo("Bob", 810, "Hull");
-        BuddyInfo buddy3 = new BuddyInfo("Charlie", 613, "Smiths Falls");
+        BuddyInfo buddy1 = new BuddyInfo("Alice",905, "Oshawa", "90 Bond St.");
+        BuddyInfo buddy2 = new BuddyInfo("Bob", 810, "Hull", "Ave. Masioneuve");
+        BuddyInfo buddy3 = new BuddyInfo("Charlie", 613, "Smiths Falls","10 Brockville St.");
 
         book.addBuddy(buddy1);
         book.addBuddy(buddy2);
