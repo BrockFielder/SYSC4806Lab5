@@ -11,6 +11,11 @@ public class ViewController {
     @Autowired
     private AddressBookRepository AddressRepo;
 
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/addressbook/1";
+    }
+
     @GetMapping("/addressbook/{id}")
     public String viewAddressBook(@PathVariable Long id, Model model) {
 
