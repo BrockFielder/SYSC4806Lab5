@@ -14,13 +14,15 @@
         private String name;
         private int number;
         private String home;
+        private String address;
 
         public BuddyInfo() {}
 
-        public BuddyInfo(String name, int number, String home) {
+        public BuddyInfo(String name, int number, String home, String address) {
             this.name = name;
             this.number = number;
             this.home = home;
+            this.address = address;
         }
 
         public String getName() {
@@ -32,6 +34,12 @@
         public String getHome() {
             return home;
         }
-        public long getId() {return id;}
+        public Long getId() {
+            return id != null ? id : -1L;
+        }
+
+        public String getAddress() {
+            return address;
+        }
 
     }

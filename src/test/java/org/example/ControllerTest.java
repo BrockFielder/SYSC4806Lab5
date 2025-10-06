@@ -46,13 +46,11 @@ public class ControllerTest {
 
     @Test
     public void testAddBuddyToAddressBook() {
-        // Step 1: Create a new AddressBook
         ResponseEntity<AddressBook> createResponse =
-                restTemplate.postForEntity(getBaseUrl(), "{}", AddressBook.class);
+                restTemplate.postForEntity(getBaseUrl(), new AddressBook(), AddressBook.class);
         AddressBook createdBook = createResponse.getBody();
 
-        // Step 2: Add a buddy to it
-        BuddyInfo buddy = new BuddyInfo("Alice", 905, "Oshawa");
+        BuddyInfo buddy = new BuddyInfo("Alice", 905, "Oshawa", "16 King St.");
 
         ResponseEntity<BuddyInfo> buddyResponse = restTemplate.postForEntity(
                 getBaseUrl() + "/" + createdBook.getId() + "/buddies",
@@ -61,6 +59,7 @@ public class ControllerTest {
         );
 
         assertThat(buddyResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(buddyResponse.getBody()).isNotNull();
         assertThat(buddyResponse.getBody().getName()).isEqualTo("Alice");
         assertThat(buddyResponse.getBody().getHome()).isEqualTo("Oshawa");
     }

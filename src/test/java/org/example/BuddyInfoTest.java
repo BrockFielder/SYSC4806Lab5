@@ -16,21 +16,31 @@ public class BuddyInfoTest {
     private BuddyRepository buddyRepository;
 
     @Test
+    public void testBuddyAddressField() {
+        BuddyInfo buddy = new BuddyInfo("Alice", 905, "Oshawa", "123 King St E");
+
+        assertEquals("Alice", buddy.getName());
+        assertEquals(905, buddy.getNumber());
+        assertEquals("Oshawa", buddy.getHome());
+        assertEquals("123 King St E", buddy.getAddress());
+    }
+
+    @Test
     public void testConstructorStoresName() {
-        BuddyInfo buddy = new BuddyInfo("Charlie", 8, "Aylmer");
+        BuddyInfo buddy = new BuddyInfo("Charlie", 8, "Aylmer", "Main St");
         assertNotNull(buddy);
         assertEquals("Charlie", buddy.getName());
     }
 
     @Test
     public void testGetName() {
-        BuddyInfo buddy = new BuddyInfo("Diana", 61, "Perth");
+        BuddyInfo buddy = new BuddyInfo("Diana", 61, "Perth", "Main St");
         assertEquals("Diana", buddy.getName());
     }
 
     @Test
     public void persist() {
-        BuddyInfo buddy = new BuddyInfo("Alice", 42, "Ottawa");
+        BuddyInfo buddy = new BuddyInfo("Alice", 42, "Ottawa", "140 Sunnyside Ave");
 
         BuddyInfo savedBuddy = buddyRepository.save(buddy);
 
