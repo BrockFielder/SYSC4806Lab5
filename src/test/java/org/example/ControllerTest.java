@@ -35,7 +35,6 @@ public class ControllerTest {
         assertThat(createdBook).isNotNull();
         assertThat(createdBook.getBuddyList()).isEmpty();
 
-        // Retrieve the AddressBook by ID
         Long id = createdBook.getId();
         ResponseEntity<AddressBook> getResponse =
                 restTemplate.getForEntity(getBaseUrl() + "/" + id, AddressBook.class);
