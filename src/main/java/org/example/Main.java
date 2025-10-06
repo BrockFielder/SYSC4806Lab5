@@ -1,4 +1,4 @@
-package org.example;
+/*package org.example;
 
 import org.example.AddressBook;
 import org.example.BuddyInfo;
@@ -20,4 +20,4 @@ public class Main {
             System.out.println(b.getName());
         }
     }
-}
+}*/

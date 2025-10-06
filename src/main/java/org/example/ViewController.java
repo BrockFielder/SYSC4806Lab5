@@ -13,8 +13,15 @@ public class ViewController {
 
     @GetMapping("/")
     public String home() {
-        return "redirect:/addressbook/1";
+        // Create a new AddressBook if none exist
+        if (AddressRepo.count() == 0) {
+            AddressBook newBook = new AddressBook();
+            AddressRepo.save(newBook);
+        }
+        AddressBook firstBook = AddressRepo.findAll().iterator().next();
+        return "redirect:/addressbook/" + firstBook.getId();
     }
+
 
     @GetMapping("/addressbook/{id}")
     public String viewAddressBook(@PathVariable Long id, Model model) {
