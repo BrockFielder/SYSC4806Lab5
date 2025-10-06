@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ViewController {
@@ -13,7 +14,6 @@ public class ViewController {
 
     @GetMapping("/")
     public String home() {
-        // Create a new AddressBook if none exist
         if (AddressRepo.count() == 0) {
             AddressBook newBook = new AddressBook();
             AddressRepo.save(newBook);
@@ -37,6 +37,12 @@ public class ViewController {
         model.addAttribute("bookId", id);
         model.addAttribute("buddies", book != null ? book.getBuddyList() : java.util.List.of());
         return "addressbook";
+    }
+
+    @GetMapping("/health")
+    @ResponseBody
+    public String health() {
+        return "OK";
     }
 }
 
