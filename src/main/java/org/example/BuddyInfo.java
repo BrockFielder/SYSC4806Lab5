@@ -35,7 +35,7 @@
             return home;
         }
         public Long getId() {
-            return id != null ? id : -1L;
+            return id != null ? id : -1;
         }
 
         public String getAddress() {
