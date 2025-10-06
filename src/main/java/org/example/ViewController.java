@@ -14,12 +14,9 @@ public class ViewController {
 
     @GetMapping("/")
     public String home() {
-        if (AddressRepo.count() == 0) {
-            AddressBook newBook = new AddressBook();
-            AddressRepo.save(newBook);
-        }
-        AddressBook firstBook = AddressRepo.findAll().iterator().next();
-        return "redirect:/addressbook/" + firstBook.getId();
+
+
+        return "Welcome to my website the process is working, this page is a placeholder";
     }
 
 
@@ -43,6 +40,12 @@ public class ViewController {
     @ResponseBody
     public String health() {
         return "OK";
+    }
+
+    @GetMapping("/proof")
+    @ResponseBody
+    public String proof() {
+        return "This url works";
     }
 }
 
