@@ -15,11 +15,10 @@ public class AddressBookTest {
     @Autowired
     private AddressBookRepository addressBookRepo;
 
-    // ✅ Test adding a buddy to an AddressBook in memory
     @Test
     public void testAddBuddy() {
         AddressBook book = new AddressBook();
-        BuddyInfo buddy = new BuddyInfo("Alice", 905, "Port Hope");
+        BuddyInfo buddy = new BuddyInfo("Alice", 905, "Port Hope", "40 10th Line St.");
 
         book.addBuddy(buddy);
         List<BuddyInfo> buddies = book.getBuddyList();
@@ -30,12 +29,12 @@ public class AddressBookTest {
         assertEquals("Port Hope", buddies.get(0).getHome());
     }
 
-    // ✅ Test removing a buddy
     @Test
     public void testRemoveBuddy() {
         AddressBook book = new AddressBook();
-        BuddyInfo buddy1 = new BuddyInfo("Alice", 613, "Cornwall");
-        BuddyInfo buddy2 = new BuddyInfo("Bob", 514, "Montreal");
+        BuddyInfo buddy1 = new BuddyInfo("Alice", 613, "Cornwall","99 Victoria St." );
+
+        BuddyInfo buddy2 = new BuddyInfo("Bob", 514, "Montreal", "16 Boulevard René-Lévesque");
 
         book.addBuddy(buddy1);
         book.addBuddy(buddy2);
@@ -46,7 +45,6 @@ public class AddressBookTest {
         assertEquals("Bob", buddies.get(0).getName());
     }
 
-    // ✅ Test that AddressBook and Buddies persist correctly in the database
     @Test
     public void testPersistence() {
         // Clear previous test data
@@ -54,28 +52,24 @@ public class AddressBookTest {
         buddyRepo.deleteAll();
 
         // Create some BuddyInfo objects
-        BuddyInfo buddy1 = new BuddyInfo("Alice", 42, "Ottawa, ON");
-        BuddyInfo buddy2 = new BuddyInfo("John", 40, "Perth, ON");
-        BuddyInfo buddy3 = new BuddyInfo("Peter", 42, "Maniwaki, PQ");
+        BuddyInfo buddy1 = new BuddyInfo("Alice", 42, "Ottawa, ON", "957 Bank St,");
+        BuddyInfo buddy2 = new BuddyInfo("John", 40, "Perth, ON", "Main St.");
+        BuddyInfo buddy3 = new BuddyInfo("Peter", 42, "Maniwaki, PQ", "56 Rue Des Oblats");
 
         // Add them to an AddressBook
         AddressBook book = new AddressBook();
         book.addBuddy(buddy1);
         book.addBuddy(buddy2);
         book.addBuddy(buddy3);
-
-        // Save AddressBook (cascade should save Buddies too)
         AddressBook savedBook = addressBookRepo.save(book);
 
         assertNotNull(savedBook.getId(), "Saved AddressBook should have an ID assigned");
         assertEquals(3, savedBook.getBuddyList().size());
 
-        // Fetch it back from the database
         AddressBook found = addressBookRepo.findById(savedBook.getId()).orElse(null);
         assertNotNull(found, "AddressBook should be retrievable from database");
         assertEquals(3, found.getBuddyList().size(), "Buddy list should persist correctly");
 
-        // Optional: check that IDs were generated for Buddies
         found.getBuddyList().forEach(b -> assertNotNull(b.getId(), "Each Buddy should have an ID"));
     }
 }
