@@ -34,7 +34,10 @@
         public String getHome() {
             return home;
         }
-        public long getId() {return id;}
+        public Long getId() {
+            return id != null ? id : -1L;
+        }
+
         public String getAddress() {
             return address;
         }
