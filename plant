@@ -1,0 +1,63 @@
+@startuml
+title Self-Driving Simulator - Module & Subsystem UML
+
+package "External Layer" {
+  [Google Maps Standard API] as MapsAPI
+  [Google Maps Navigation/Driving API] as NavAPI
+}
+
+package "Interpretation Layer" {
+  [Path Predictor]
+  [Navigation Logic]
+}
+
+package "Core Layer" {
+  [Vehicle Dynamics Module]
+  [Speed Control Module]
+  [Traffic Rules Compliance Module]
+  [Gas Tank Module]
+  [Perception Module]
+}
+
+package "Presentation Layer" {
+  [GUI]
+  [Image Loader]
+}
+
+package "Optional Support" {
+  [Logging Module]
+  [Vehicle Selection Module]
+  [Multiple Instance Controller Module]
+}
+
+' --- Connections ---
+
+' External
+MapsAPI --> [Image Loader]
+MapsAPI --> [Navigation Logic]
+NavAPI --> [Navigation Logic]
+
+' Interpretation to Core
+[Navigation Logic] --> [Traffic Rules Compliance Module]
+[Path Predictor] --> [Vehicle Dynamics Module]
+
+' Core to Presentation
+[Vehicle Dynamics Module] --> [GUI]
+[Speed Control Module] --> [GUI]
+[Gas Tank Module] --> [GUI]
+[Perception Module] --> [GUI]
+
+' Presentation feedback
+[GUI] --> MapsAPI
+[GUI] --> [Vehicle Dynamics Module]
+
+' Core to Optional
+[Vehicle Dynamics Module] --> [Logging Module]
+[Speed Control Module] --> [Logging Module]
+[Traffic Rules Compliance Module] --> [Logging Module]
+
+' Optional Config
+[Vehicle Selection Module] --> [Vehicle Dynamics Module]
+[Multiple Instance Controller Module] --> [Vehicle Dynamics Module]
+
+@enduml
