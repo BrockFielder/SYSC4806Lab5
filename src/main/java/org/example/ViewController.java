@@ -72,7 +72,7 @@ public class ViewController {
     @GetMapping("/health")
     @ResponseBody
     public String health() {
-        return "OK";
+        return "Welcome to my Web App\n this page is a placeholder";
     }
 
     @GetMapping("/proof")
