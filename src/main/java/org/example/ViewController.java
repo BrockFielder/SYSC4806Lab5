@@ -33,6 +33,25 @@ public class ViewController {
         return "redirect:/addressbook/" + firstBook.getId();
     }
 
+    @GetMapping("/error")
+    public String error() {
+        if (AddressRepo.count() == 0) {
+            AddressBook newBook = new AddressBook();
+
+
+            BuddyInfo buddy1 = new BuddyInfo("Alice", 42, "Ottawa, ON", "957 Bank St,");
+            BuddyInfo buddy2 = new BuddyInfo("John", 40, "Perth, ON", "Main St.");
+            BuddyInfo buddy3 = new BuddyInfo("Peter", 42, "Maniwaki, PQ", "56 Rue Des Oblats");
+
+            newBook.addBuddy(buddy1);
+            newBook.addBuddy(buddy2);
+            newBook.addBuddy(buddy3);
+            AddressRepo.save(newBook);
+        }
+        AddressBook firstBook = AddressRepo.findAll().iterator().next();
+        return "redirect:/addressbook/" + firstBook.getId();
+    }
+
 
     @GetMapping("/addressbook/{id}")
     public String viewAddressBook(@PathVariable Long id, Model model) {
