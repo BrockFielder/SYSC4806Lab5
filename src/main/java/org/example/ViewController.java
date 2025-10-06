@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.awt.*;
+
 @Controller
 public class ViewController {
     @Autowired
@@ -14,9 +16,21 @@ public class ViewController {
 
     @GetMapping("/")
     public String home() {
+        if (AddressRepo.count() == 0) {
+            AddressBook newBook = new AddressBook();
 
 
-        return "Welcome to my website the process is working, this page is a placeholder";
+            BuddyInfo buddy1 = new BuddyInfo("Alice", 42, "Ottawa, ON", "957 Bank St,");
+            BuddyInfo buddy2 = new BuddyInfo("John", 40, "Perth, ON", "Main St.");
+            BuddyInfo buddy3 = new BuddyInfo("Peter", 42, "Maniwaki, PQ", "56 Rue Des Oblats");
+
+            newBook.addBuddy(buddy1);
+            newBook.addBuddy(buddy2);
+            newBook.addBuddy(buddy3);
+            AddressRepo.save(newBook);
+        }
+        AddressBook firstBook = AddressRepo.findAll().iterator().next();
+        return "redirect:/addressbook/" + firstBook.getId();
     }
 
 
